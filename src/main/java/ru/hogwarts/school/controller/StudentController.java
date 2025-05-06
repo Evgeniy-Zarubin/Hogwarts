@@ -1,5 +1,6 @@
 package ru.hogwarts.school.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Student;
@@ -8,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/students")
-
+@Tag(name = "Контроллер для работы со студентами", description = "Предоставляет CURD по студентам")
 public class StudentController {
 
     private final StudentService studentService;

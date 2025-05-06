@@ -1,13 +1,17 @@
 package ru.hogwarts.school.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.service.FacultyService;
+
+import javax.naming.Name;
 import java.util.List;
 
 @RestController
 @RequestMapping("/faculties")
+@Tag(name = "Контроллер для работы с факультетами", description = "Предоставляет CURD по факультетам")
 public class FacultyController {
 
     private final FacultyService facultyService;
