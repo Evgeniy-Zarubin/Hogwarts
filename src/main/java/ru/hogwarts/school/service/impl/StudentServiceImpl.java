@@ -32,7 +32,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student getStudent(Long id) {
         checkExistStudent(id);
-        return studentRepository.getReferenceById(id);
+        return studentRepository.findById(id).orElseThrow(()-> new NotFoundException(String.format("Студент с id %s не найден", id)));
     }
 
     @Override

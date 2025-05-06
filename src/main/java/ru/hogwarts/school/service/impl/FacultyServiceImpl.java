@@ -1,7 +1,6 @@
 package ru.hogwarts.school.service.impl;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.exception.NotFoundException;
 import ru.hogwarts.school.model.Faculty;
@@ -33,7 +32,7 @@ public class FacultyServiceImpl implements FacultyService {
     @Override
     public Faculty getFaculty(Long id) {
         checkExistFaculty(id);
-        return facultyRepository.getReferenceById(id);
+        return facultyRepository.findById(id).orElseThrow(()-> new NotFoundException(String.format("Факультет с id %s не найден", id)));
     }
 
     @Override
