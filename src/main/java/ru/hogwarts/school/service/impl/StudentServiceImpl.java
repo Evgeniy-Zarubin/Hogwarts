@@ -6,6 +6,7 @@ import ru.hogwarts.school.exception.NotFoundException;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositories.StudentRepository;
 import ru.hogwarts.school.service.StudentService;
+
 import java.util.List;
 
 
@@ -32,7 +33,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student getStudent(Long id) {
         checkExistStudent(id);
-        return studentRepository.findById(id).orElseThrow(()-> new NotFoundException(String.format("Студент с id %s не найден", id)));
+        return studentRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("Студент с id %s не найден", id)));
     }
 
     @Override
@@ -51,4 +52,10 @@ public class StudentServiceImpl implements StudentService {
             throw new NotFoundException("Студент с id" + id + "не найден");
         }
     }
+
+    @Override
+    public List<Student> findByAgeBetween(int minAge, int maxAge) {
+        return studentRepository.findByAgeBetween(minAge, maxAge);
+    }
+
 }
