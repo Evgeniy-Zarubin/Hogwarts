@@ -51,4 +51,15 @@ public class FacultyServiceImpl implements FacultyService {
             throw new NotFoundException("Факультет с id" + id + "не найден");
         }
     }
+
+    @Override
+    public List<Faculty> findByName(String name){
+        return facultyRepository.findByNameFacultyIgnoreCase(name);
+    }
+
+    @Override
+    public List<Faculty> findByFacultyByColor(String color){
+        return facultyRepository.findByColorIgnoreCase(color);
+    }
+
 }
