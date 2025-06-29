@@ -1,0 +1,7 @@
+-- Таблица Студентов (Student)
+ALTER TABLE students ADD CONSTRAINT chk_age CHECK (age >= 16 OR age IS NULL);
+ALTER TABLE students ALTER COLUMN first_name SET NOT NULL UNIQUE;
+ALTER TABLE students ALTER COLUMN age SET DEFAULT 20;
+
+-- Таблица Факультетов (Faculty)
+ALTER TABLE faculties ADD CONSTRAINT unique_faculty UNIQUE(name, color);
