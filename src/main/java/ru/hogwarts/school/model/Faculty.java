@@ -1,11 +1,11 @@
 package ru.hogwarts.school.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import ru.hogwarts.school.repositories.StudentRepository;
-
+import java.util.Collection;
 import java.util.Objects;
-import java.util.Set;
 
 
 @Entity
@@ -13,15 +13,17 @@ public class Faculty {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
     private String color;
 
 
-    @OneToMany(mappedBy = "faculty_id")
-    private Set<Student> students;
+    @OneToMany(mappedBy = "faculty", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    //@JsonBackReference
+    private Collection<Student> students;
 
     public Faculty(Long id, String name, String color) {
         this.id = id;
@@ -56,6 +58,14 @@ public class Faculty {
         this.color = color;
     }
 
+    public Collection<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Collection<Student> students) {
+        this.students = students;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
@@ -67,4 +77,5 @@ public class Faculty {
     public int hashCode() {
         return Objects.hash(id, name, color);
     }
+
 }

@@ -8,7 +8,6 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositories.StudentRepository;
 import ru.hogwarts.school.service.StudentService;
 
-import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -18,11 +17,11 @@ public class StudentController {
 
     private final StudentService studentService;
 
-    @Autowired
-    private StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
 
-    public StudentController(StudentService studentService) {
+    public StudentController(StudentService studentService, StudentRepository studentRepository) {
         this.studentService = studentService;
+        this.studentRepository = studentRepository;
     }
 
     @PostMapping
@@ -52,7 +51,25 @@ public class StudentController {
 
     @GetMapping("/age-range")
     public List<Student> getStudentsByAgeRange(@RequestParam(value="min") int min, @RequestParam(value="max") int max) {
-        return studentRepository.findByAgeBetween(min, max);
+        return studentService.findByAgeBetween(min, max);
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<Integer> getCountOfStudents() {
+        int totalStudents = studentRepository.countStudents();
+        return ResponseEntity.ok(totalStudents);
+    }
+
+    @GetMapping("/average-age")
+    public ResponseEntity<Double> getAverageAge() {
+        double avgAge = studentRepository.averageAge();
+        return ResponseEntity.ok(avgAge);
+    }
+
+    @GetMapping("/last-five")
+    public ResponseEntity<List<Student>> getLastFiveStudents() {
+        List<Student> lastFiveStudents = studentRepository.findLastFiveStudents();
+        return ResponseEntity.ok(lastFiveStudents);
     }
 
 }

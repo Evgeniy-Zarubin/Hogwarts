@@ -1,5 +1,6 @@
 package ru.hogwarts.school.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +29,13 @@ public class FacultyController {
     }
 
     @PostMapping
+    @Operation (summary = "Добавление факультета")
     public Faculty addFaculty(@RequestBody Faculty faculty) {
         return facultyService.addFaculty(faculty);
     }
 
     @PutMapping("/{id}")
+    @Operation (summary = "Обновление факультета")
     public Faculty updateFaculty(@PathVariable(name = "id") Long id, @RequestBody Faculty faculty) {
         return facultyService.updateFaculty(id, faculty);
     }
