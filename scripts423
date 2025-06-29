@@ -1,0 +1,10 @@
+-- Первый запрос: выбрать имена и возраст студентов Хогвартса с названиями факультетов
+SELECT s.first_name AS student_name, s.age, f.name AS faculty_name
+FROM students s
+JOIN faculties f ON s.faculty_id = f.id
+WHERE s.school_name = 'Хогвартс';
+
+-- Второй запрос: выбрать студентов, у которых есть аватарки
+SELECT s.first_name AS student_name, s.age
+FROM students s
+JOIN avatars a ON s.avatar_id = a.id;
